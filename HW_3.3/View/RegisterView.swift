@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @AppStorage(wrappedValue: "", "logedUser") var logedUser
     @EnvironmentObject var user: UserManager
-    @State private var name = ""
     @State private var colorCheck = Color.red
     @State private var buttonCheck = true
     
@@ -18,10 +16,10 @@ struct RegisterView: View {
         VStack {
             HStack {
                 TextField("Enter yor name", text: Binding(get: {
-                    self.name
+                    self.user.logedUser
                 }, set: { newValue in
-                    self.name = newValue
-                    if self.name.count < 3 {
+                    self.user.logedUser = newValue
+                    if self.user.logedUser.count < 3 {
                         colorCheck = Color.red
                         buttonCheck = true
                     } else {
@@ -31,7 +29,7 @@ struct RegisterView: View {
                 }))
                     .multilineTextAlignment(.center)
                 
-                Text("\(name.count)")
+                Text("\(user.logedUser.count)")
                     .offset(x: -30, y: 0)
                     .foregroundColor(colorCheck)
             }
@@ -46,11 +44,8 @@ struct RegisterView: View {
     }
     
     private func registerUser() {
-        if !name.isEmpty {
-            user.name = name
-            logedUser = user.name
-            user.isRegister.toggle()
-            print("\(logedUser)")
+        if !user.logedUser.isEmpty {
+            user.registred = true
         }
     }
 }

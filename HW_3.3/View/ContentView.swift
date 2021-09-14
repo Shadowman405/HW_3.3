@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage(wrappedValue: "", "logedUser") var logedUser
     @EnvironmentObject var user: UserManager
     @StateObject private var timer = TimeCounter()
     
     var body: some View {
         VStack {
-            Text("Hi \(logedUser) !")
+            Text("Hi \(user.logedUser) !")
                 .font(.largeTitle)
                 .offset(x: 0, y: 100)
             Text("\(timer.counter)")
@@ -70,8 +69,8 @@ struct ButtonLogoutView: View {
     }
     
     func logOut() {
-        user.name = ""
-        user.isRegister.toggle()
+        user.logedUser = ""
+        user.registred = false
         if let bundleID = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: bundleID)
         }

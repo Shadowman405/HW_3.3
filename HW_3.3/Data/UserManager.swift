@@ -9,8 +9,6 @@ import SwiftUI
 import Foundation
 
 class UserManager: ObservableObject {
-    @Published var isRegister = false
-    
-    var name = ""
-    
+    @AppStorage("Registred") var registred = false
+    @AppStorage("logedUser") var logedUser = ""
 }
